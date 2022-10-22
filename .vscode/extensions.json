@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "rvest.vs-code-prettier-eslint",
+    "dsznajder.es7-react-js-snippets",
+    "usernamehw.errorlens",
+    "styled-components.vscode-styled-components",
+    "loiane.ts-extension-pack",
+    "pmneo.tsimporter",
+    "christian-kohler.path-intellisense"
+  ]
+}
