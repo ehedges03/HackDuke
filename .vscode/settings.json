@@ -2,5 +2,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.tabSize": 2,
-  "editor.insertSpaces": true
+  "editor.insertSpaces": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true
 }
