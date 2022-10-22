@@ -1,6 +1,10 @@
 
 export default function About() {
 
-    throw new Error("not yet implemented");
+    return(
+        <h1>
+            ABOUT PAGE
+        </h1>
+    )
 
 };

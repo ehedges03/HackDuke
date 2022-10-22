@@ -1,6 +1,10 @@
 
 export default function Feedback() {
 
-    throw new Error("not yet implemented");
+    return(
+        <h1>
+            FEEDBACK PAGE
+        </h1>
+    )
 
 };

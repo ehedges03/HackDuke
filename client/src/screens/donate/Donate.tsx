@@ -1,6 +1,10 @@
 
 export default function Donate() {
 
-    throw new Error("not yet implemented");
+    return(
+        <h1>
+            DONATE PAGE
+        </h1>
+    )
 
 };

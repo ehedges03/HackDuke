@@ -1,6 +1,10 @@
 
 export default function Account() {
 
-    throw new Error("not yet implemented");
+    return(
+        <h1>
+            ACCOUNT PAGE
+        </h1>
+    )
 
 };

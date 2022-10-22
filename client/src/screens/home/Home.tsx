@@ -1,6 +1,8 @@
 
 export default function Home() {
-
-    throw new Error("not yet implemented");
-
+    return(
+        <h1>
+            HOME PAGE
+        </h1>
+    )
 };
