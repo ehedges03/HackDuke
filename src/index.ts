@@ -1,11 +1,15 @@
-import './pre-start'; // Must be the first import
-import logger from 'jet-logger';
+import cfg from "./config";
+import express from "express";
+import loader from "loaders";
 
-import EnvVars from '@configurations/EnvVars';
-import server from './server';
+async function startServer() {
+  const app = express();
 
+  await loader(app);
 
-// **** Start server **** //
+  app.listen(cfg.port, () => {
+    console.log(`Listening on port ${cfg.port}`);
+  });
+}
 
-const msg = ('Express server started on port: ' + EnvVars.port.toString());
-server.listen(EnvVars.port, () => logger.info(msg));
+startServer();

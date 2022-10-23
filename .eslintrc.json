@@ -6,7 +6,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:node/recommended"
   ],
   "parserOptions": {
@@ -20,7 +19,6 @@
       }
     ],
     "comma-dangle": ["warn", "always-multiline"],
-    "no-console": 1,
     "no-extra-boolean-cast": 0,
     "semi": 1,
     "indent": ["warn", 2],
