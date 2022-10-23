@@ -68,53 +68,47 @@ class ReportsService {
       .getMany();
 
     let mostNodes = 0;
-    const nodes: { [key: string]: number } = {};
-
-    const filteredReports = filters.length > 0 ? reports.filter((report) => {
-      if (report.symptoms.some((symptom) => {
-        return filters.includes(parseInt(symptom as unknown as string));
-      })) {
-        // eslint-disable-next-line max-len
-        const key = String(Math.floor(report.lng * 100) + Math.floor(report.lat * 100));
-        nodes[key] = 1 + (nodes[key] == null ? 0 : nodes[key]);
-        if (nodes[key] > mostNodes) {
-          mostNodes = nodes[key];
-        }
-        return true;
-      } 
-      return false;
-    }) : (() => {
-      reports.forEach((report) => {
-        // eslint-disable-next-line max-len
-        const key = String(Math.floor(report.lng * 100) + Math.floor(report.lat * 100));
-        nodes[key] = 1 + (nodes[key] == null ? 0 : nodes[key]);
-        if (nodes[key] > mostNodes) {
-          mostNodes = nodes[key];
-        }
-      });
-      
-      return reports;
-    })();
-
-    if (filteredReports.length === 0) {
-      return {
-        fullRad: 0,
-        points: [],
-      };
-    }
+    const nodes: { [key: string]: {
+      lat: number,
+      lng: number,
+      count: number,
+    } } = {};
 
     const fullRad = getDistance(topLeft, bottomRight);
 
+    for (const report of reports) {
+      if (filters.length > 0 && !report.symptoms.some((symptom) => {
+        return filters.includes(parseInt(symptom as unknown as string));
+      })) {
+        continue;
+      }
+      // eslint-disable-next-line max-len
+      const lat = (Math.round((report.lat - topLeft.lat) / fullRad) * fullRad) 
+        + topLeft.lat;
+      const lng = (Math.round((report.lng - topLeft.lng) / fullRad) * fullRad)
+        + topLeft.lng;
+      const key = String(Math.floor(lng * 100) + Math.floor(lat * 100));
+      if (nodes[key] == null) {
+        nodes[key] = {
+          lat: lat,
+          lng: lng,
+          count: 1,
+        };
+      } else {
+        nodes[key].count = nodes[key].count + 1;
+      }
+      if (nodes[key].count > mostNodes) {
+        mostNodes = nodes[key].count;
+      }
+    }
+
     return ({
       fullRad,
-      points: filteredReports.map((report) => {
+      points: Object.keys(nodes).map((nodeKey) => {
         return {
-          lat: (Math.round((report.lat - topLeft.lat) / fullRad) * fullRad) 
-            + topLeft.lat,
-          lng: (Math.round((report.lng - topLeft.lng) / fullRad) * fullRad)
-            + topLeft.lng,
-          // eslint-disable-next-line max-len
-          size: nodes[String(Math.floor(report.lng * 100) + Math.floor(report.lat * 100))] / mostNodes,
+          lat: nodes[nodeKey].lat,
+          lng: nodes[nodeKey].lng,
+          size: nodes[nodeKey].count / mostNodes,
         };
       }),
     });

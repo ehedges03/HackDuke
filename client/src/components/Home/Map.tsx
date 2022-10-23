@@ -1,86 +1,45 @@
-import { GoogleMap, LoadScript, useLoadScript } from "@react-google-maps/api";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { MapContainer } from "./Map.styles";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { Wrapper } from "@googlemaps/react-wrapper";
 
-const libraries: "places"[] = ["places"];
+const Points = {};
 
 export default function Map() {
   const [center, setCenter] = useState({ lat: 37, lng: -96 });
+  const ref = useRef<HTMLDivElement>(null);
+  const map = useRef<google.maps.Map>();
 
   useEffect(() => {
-    let watcher = navigator.geolocation.watchPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
       setCenter({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
     });
-
-    return () => {
-      navigator.geolocation.clearWatch(watcher);
-    };
   }, []);
-
-  const container = useRef<HTMLDivElement>();
-
-  const [pageSize, setPageSize] = useState({
-    width: container.current?.offsetWidth,
-    height: container.current?.offsetHeight,
-  });
-
-  const containerStyle = useMemo(() => {
-    return {
-      width: pageSize.width || 0,
-      height: pageSize.height || 0, //- height of navbar,
-    };
-  }, [pageSize.width, pageSize.height]);
 
   useEffect(() => {
-    const updatePageSize = (e: UIEvent) => {
-      if (container.current === undefined) return;
-
-      setPageSize({
-        width: container.current?.offsetWidth,
-        height: container.current?.offsetHeight,
+    if (ref?.current != null && map.current == null) {
+      map.current = new window.google.maps.Map(ref.current, {
+        center,
+        zoom: 10,
       });
-    };
 
-    document.addEventListener("resize", updatePageSize);
-
-    return () => {
-      document.removeEventListener("resize", updatePageSize);
-    };
-  }, []);
-
-  const getReference = (e: any) => {
-    if (e !== undefined && container.current == null) {
-      setPageSize({
-        width: e.offsetWidth,
-        height: e.offsetHeight,
+      // Get bounds gives north east and south west corners of the map
+      // Convert to north west and south east and pass to api with filters to get all points in bound
+      // Calculate degree to pixel ratio and use to print out circles onto
+      // canvas
+      // Whenever movement occurs redraw canvas points until new data comes in and then draw that
+      // instead of the old data
+      map.current.addListener("recenter", () => {
+        map.current!.getBounds();
       });
-      container.current = e;
+      // setInterval(() => {
+      //   console.log(map.getBounds());
+      // }, 1000);
     }
-  };
+  });
 
-  // const { isLoaded, loadError } = useLoadScript({
-  //   googleMapsApiKey: process.env.REACT_APP_API_KEY!,
-  //   [libraries]: libraries,
-  // });
-
-  return (
-    <MapContainer ref={getReference}>
-      <LoadScript
-        googleMapsApiKey={process.env.REACT_APP_API_KEY!}
-        libraries={libraries}
-      >
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-        ></GoogleMap>
-        <GooglePlacesAutocomplete />
-      </LoadScript>
-    </MapContainer>
-  );
+  return <MapContainer ref={ref} id="map" />;
 }

@@ -33,8 +33,8 @@ export default (app: Router) => {
 
     report.symptoms = symptoms;
     report.user = username;
-    report.lng = lng + 180;
-    report.lat = lat + 90;
+    report.lng = lng;
+    report.lat = lat;
     
     if (await ReportsService.addReport(report)) {
       res.send({ success: true });
@@ -47,10 +47,7 @@ export default (app: Router) => {
 
   route.get("/reports", async (req: Request, res: Response) => {
     const { topLeft, bottomRight, filters } = req.body;
-    topLeft.lng += 180;
-    topLeft.lat += 90;
-    bottomRight.lng += 180;
-    bottomRight.lat += 90;
+
     res.send(await ReportsService.getReports(topLeft, bottomRight, filters));
   });
 

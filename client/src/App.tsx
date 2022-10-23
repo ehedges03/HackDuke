@@ -13,13 +13,15 @@ function App() {
   return (
     <>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/donate" element={<Donate />} />
-        <Route path="/feedback" element={<Feedback />} />
-      </Routes>
+      <div style={{ position: "relative", height: "calc(100% - 64px)" }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/donate" element={<Donate />} />
+          <Route path="/feedback" element={<Feedback />} />
+        </Routes>
+      </div>
     </>
   );
 }

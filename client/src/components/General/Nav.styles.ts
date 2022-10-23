@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 
 export const NavBar = styled.div`
   width: 100%;
-  height: 50px;
+  height: 64px;
   background: #f7f7f7;
   border-bottom: 1px solid #555;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
+  padding: 8px;
 `;
 
 export const LogoContainer = styled.div`
