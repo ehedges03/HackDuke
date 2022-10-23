@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { CreateReportContainer } from "./CreateReport.styles";
+import {
+  CreateReportContainer,
+  CreateIconStyled,
+  XIconStyled,
+  CreateReportHeader,
+} from "./CreateReport.styles";
 
 export const OPEN_CLOSE_ANIMATE_TIME = 0.2;
 
@@ -17,37 +22,48 @@ export default function CreateReport() {
     <CreateReportContainer
       title={display ? "" : "Create Report"}
       onClick={() => {
-        setDisplay(true);
-        setAnimate(true);
+        if (!display) {
+          setDisplay(true);
+          setAnimate(true);
+        }
       }}
-      display={display ? 1 : 0}
-      animate={animate ? 1 : 0}
+      display={display ? true : false}
+      animate={animate ? true : false}
     >
       {display ? (
         animate ? null : (
           <Options setDisplay={setDisplay} setAnimate={setAnimate} />
         )
       ) : animate ? null : (
-        <h1>Cr</h1>
+        <CreateIconStyled />
       )}
     </CreateReportContainer>
   );
 }
 
-function Options({ setDisplay, setAnimate }) {
+function Options({
+  setDisplay,
+  setAnimate,
+}: {
+  setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  setAnimate: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <>
-      <h1
+      <XIconStyled
         onClick={() => {
           setDisplay(false);
           setAnimate(true);
         }}
-      >
-        help
-      </h1>
+      />
+      <CreateReportHeader> CREATE SYMPTOM REPORT </CreateReportHeader>
+
+      {/* add google autocomplete, and the chipsautocomplete components that are in comp folder */}
     </>
   );
+
   async function createNewReport() {
+    // code to write to db
     setDisplay(false);
   }
 }
