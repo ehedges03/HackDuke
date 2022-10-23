@@ -1,10 +1,14 @@
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, useLoadScript } from "@react-google-maps/api";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { MapContainer } from "./Map.styles";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+
+const libraries: "places"[] = ["places"];
 
 export default function Map() {
   const [center, setCenter] = useState({ lat: 37, lng: -96 });
+
   useEffect(() => {
     let watcher = navigator.geolocation.watchPosition((position) => {
       setCenter({
@@ -59,14 +63,23 @@ export default function Map() {
     }
   };
 
+  // const { isLoaded, loadError } = useLoadScript({
+  //   googleMapsApiKey: process.env.REACT_APP_API_KEY!,
+  //   [libraries]: libraries,
+  // });
+
   return (
     <MapContainer ref={getReference}>
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY!}>
+      <LoadScript
+        googleMapsApiKey={process.env.REACT_APP_API_KEY!}
+        libraries={libraries}
+      >
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
           zoom={10}
         ></GoogleMap>
+        <GooglePlacesAutocomplete />
       </LoadScript>
     </MapContainer>
   );
