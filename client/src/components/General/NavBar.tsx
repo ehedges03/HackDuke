@@ -1,6 +1,7 @@
+import React from "react";
 
-export default function NavBar() {
-
-    throw new Error("not yet implemented");
-
+const Nav = () => {
+  return <div>Nav</div>;
 };
+
+export default Nav;
