@@ -6,7 +6,10 @@ import {
   LogoContainer,
 } from "./Nav.styles";
 
+import { ReactComponent as Logo } from "./HandShake.svg";
+
 const data = require("./links.json");
+
 //const linksString = JSON.stringify(data);
 //const links = JSON.parse(linksString).links;
 
@@ -29,7 +32,7 @@ const Nav: React.FC<{}> = () => {
   return (
     <NavBar>
       <LogoContainer>
-        <span>Logo</span>
+        <Logo />
       </LogoContainer>
       <Links links={data.links} />
     </NavBar>

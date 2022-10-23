@@ -8,9 +8,9 @@ export default function SearchBar() {
     if (ref?.current != null) {
       // TODO: ROB!!!! ------>> https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
       // new window.google.maps.places.Autocomplete(ref.current, {
-      //   // fields: ["formatted_address", "geometry", "name"],
-      //   // strictBounds: false,
-      //   // types: ["establishment"],
+      //   fields: ["formatted_address", "geometry", "name"],
+      //   strictBounds: false,
+      //   types: ["establishment"],
       // });
       // setInterval(() => {
       //   console.log(map.getBounds());

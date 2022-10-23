@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Wrapper apiKey={process.env.REACT_APP_API_KEY!}>
-        {/* <Map /> */}
+        <Map />
         <SearchBar />
       </Wrapper>
       <CreateReport />

@@ -64,7 +64,7 @@ export const XIconStyled = styled(XIcon)`
 export const CreateReportHeader = styled.div`
   font-family: "Inter", sans-serif;
   font-weight: 700;
-  font-size: 40pt;
+  font-size: 25pt;
   grid-column-start: 4;
   grid-column-end: span 6;
 `;
