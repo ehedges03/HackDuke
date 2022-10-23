@@ -1,8 +1,11 @@
+import Map from "components/Home/Map";
+import SearchBar from "components/Home/SearchBar";
 
 export default function Home() {
-    return(
-        <h1>
-            HOME PAGE
-        </h1>
-    )
-};
+  return (
+    <>
+      <SearchBar />
+      <Map />
+    </>
+  );
+}

@@ -1,11 +1,11 @@
 import './global.css';
 
 import { Routes, Route } from "react-router-dom";
-import Home from "./screens/home/Home";
-import Account from "./screens/account/Account";
-import About from "./screens/about/About";
-import Donate from "./screens/donate/Donate";
-import Feedback from "./screens/feedback/Feedback";
+import Home from "screens/home/Home";
+import Account from "screens/account/Account";
+import About from "screens/about/About";
+import Donate from "screens/donate/Donate";
+import Feedback from "screens/feedback/Feedback";
 
 function App() {
   return (
