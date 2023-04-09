@@ -48,7 +48,7 @@
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
     "pg": "^8.8.0",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.14"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
